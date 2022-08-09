@@ -1,0 +1,38 @@
+{
+  "stackName": "amplify-amptest-dev-135319",
+  "props": {
+    "templateFile": "root-stack-template.json",
+    "parameters": {
+      "AuthRoleName": "amplify-amptest-dev-135319-authRole",
+      "UnauthRoleName": "amplify-amptest-dev-135319-unauthRole",
+      "DeploymentBucketName": "amplify-amptest-dev-135319-deployment"
+    },
+    "preserveLogicalIds": true,
+    "loadNestedStacks": {
+      "apiamptest": {
+        "templateFile": "api/amptest/cloudformation-template.json",
+        "parameters": {
+          "AppSyncApiName": "amptest",
+          "DynamoDBBillingMode": "PAY_PER_REQUEST",
+          "DynamoDBEnableServerSideEncryption": false,
+          "S3DeploymentBucket": "amplify-amptest-dev-135319-deployment",
+          "S3DeploymentRootKey": "amplify-appsync-files/03139b996f606f31e0ae2e93d8dd83dc03977a13",
+          "env": "dev"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {
+          "CustomResourcesjson": {
+            "templateFile": "api/amptest/amplify-appsync-files/stacks/CustomResources.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "Todo": {
+            "templateFile": "api/amptest/amplify-appsync-files/stacks/Todo.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          }
+        }
+      }
+    }
+  }
+}
