@@ -1,0 +1,983 @@
+
+type QuotaRuns @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  quotaID: ID!
+  apiEndpoint: String
+  balanceLimit: Float
+  httpResultCode: Int
+  responseBody: String
+  zendeskTicketId: Int
+  startAt: AWSTimestamp
+  finishAt: AWSTimestamp
+  lockedUntil: AWSTimestamp
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Quotas @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  scheduleID: ID!
+  clientId: Int
+  balanceLimit: Float
+  withQuotaRuns(filter: ModelQuotaRunsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelQuotaRunsConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type CheckUrlRuns @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  checkUrlID: ID!
+  fullUri: String!
+  httpResultCode: String
+  bodyLength: Int
+  startAt: AWSTimestamp!
+  finishAt: AWSTimestamp
+  lockedUntil: AWSTimestamp
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type CheckUrls @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  scheduleID: ID!
+  uri: String!
+  withCheckUrlRuns(filter: ModelCheckUrlRunsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCheckUrlRunsConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Schedules @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  name: String!
+  frequency: String!
+  withQuotas(filter: ModelQuotasFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelQuotasConnection
+  withCheckUrls(filter: ModelCheckUrlsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCheckUrlsConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Campaigns @aws_iam @aws_cognito_user_pools {
+  CampaignID: ID!
+  CampaignUUID: String
+  CampaignName: String!
+  CampaignUTCOffset: String
+  CampaignCardICA: String
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type CampaignDto {
+  CampaignID: ID!
+  CampaignUUID: String
+  CampaignName: String!
+  CampaignUTCOffset: String
+  CampaignCardICA: String
+}
+
+type Reports @aws_iam @aws_cognito_user_pools {
+  Name: String!
+  ReportNamePattern: String!
+  StartDate: StartDateType!
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+enum StartDateType {
+  PREDATE
+  ACTUAL
+  NEXTDATE
+}
+
+type Checks @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  Type: CheckType!
+  Date: AWSTimestamp!
+  CheckItems(filter: ModelCheckItemsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCheckItemsConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+enum CheckType {
+  CAMPAIGN
+  URL
+  QUOTA
+}
+
+type CheckItems @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  Campaign: Campaigns
+  Report: Reports
+  checkItemsCheckId: ID!
+  Check: Checks!
+  Url: String!
+  HttpResultCode: String!
+  BodyLength: Int!
+  LastModified: AWSTimestamp!
+  StartAt: AWSTimestamp!
+  FinishAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  checkItemsCampaignId: ID
+  checkItemsReportId: ID
+}
+
+type ReportMetadata {
+  LastModified: AWSTimestamp!
+  ContentLength: Int!
+  ContentType: String!
+}
+
+type Query {
+  getReportMetaData(reportUrl: String!): ReportMetadata
+  getCampaignsByName(name: String!): [CampaignDto]
+  getQuotaRuns(id: ID!): QuotaRuns @aws_iam @aws_cognito_user_pools
+  listQuotaRuns(filter: ModelQuotaRunsFilterInput, limit: Int, nextToken: String): ModelQuotaRunsConnection @aws_iam @aws_cognito_user_pools
+  syncQuotaRuns(filter: ModelQuotaRunsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelQuotaRunsConnection @aws_iam @aws_cognito_user_pools
+  getQuotas(id: ID!): Quotas @aws_iam @aws_cognito_user_pools
+  listQuotas(filter: ModelQuotasFilterInput, limit: Int, nextToken: String): ModelQuotasConnection @aws_iam @aws_cognito_user_pools
+  syncQuotas(filter: ModelQuotasFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelQuotasConnection @aws_iam @aws_cognito_user_pools
+  getCheckUrlRuns(id: ID!): CheckUrlRuns @aws_iam @aws_cognito_user_pools
+  listCheckUrlRuns(filter: ModelCheckUrlRunsFilterInput, limit: Int, nextToken: String): ModelCheckUrlRunsConnection @aws_iam @aws_cognito_user_pools
+  syncCheckUrlRuns(filter: ModelCheckUrlRunsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelCheckUrlRunsConnection @aws_iam @aws_cognito_user_pools
+  getCheckUrls(id: ID!): CheckUrls @aws_iam @aws_cognito_user_pools
+  listCheckUrls(filter: ModelCheckUrlsFilterInput, limit: Int, nextToken: String): ModelCheckUrlsConnection @aws_iam @aws_cognito_user_pools
+  syncCheckUrls(filter: ModelCheckUrlsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelCheckUrlsConnection @aws_iam @aws_cognito_user_pools
+  getSchedules(id: ID!): Schedules @aws_iam @aws_cognito_user_pools
+  listSchedules(filter: ModelSchedulesFilterInput, limit: Int, nextToken: String): ModelSchedulesConnection @aws_iam @aws_cognito_user_pools
+  syncSchedules(filter: ModelSchedulesFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelSchedulesConnection @aws_iam @aws_cognito_user_pools
+  getCampaigns(id: ID!): Campaigns @aws_iam @aws_cognito_user_pools
+  listCampaigns(filter: ModelCampaignsFilterInput, limit: Int, nextToken: String): ModelCampaignsConnection @aws_iam @aws_cognito_user_pools
+  syncCampaigns(filter: ModelCampaignsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelCampaignsConnection @aws_iam @aws_cognito_user_pools
+  getReports(id: ID!): Reports @aws_iam @aws_cognito_user_pools
+  listReports(filter: ModelReportsFilterInput, limit: Int, nextToken: String): ModelReportsConnection @aws_iam @aws_cognito_user_pools
+  syncReports(filter: ModelReportsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelReportsConnection @aws_iam @aws_cognito_user_pools
+  getChecks(id: ID!): Checks @aws_iam @aws_cognito_user_pools
+  listChecks(filter: ModelChecksFilterInput, limit: Int, nextToken: String): ModelChecksConnection @aws_iam @aws_cognito_user_pools
+  syncChecks(filter: ModelChecksFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelChecksConnection @aws_iam @aws_cognito_user_pools
+  getCheckItems(id: ID!): CheckItems @aws_iam @aws_cognito_user_pools
+  listCheckItems(filter: ModelCheckItemsFilterInput, limit: Int, nextToken: String): ModelCheckItemsConnection @aws_iam @aws_cognito_user_pools
+  syncCheckItems(filter: ModelCheckItemsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelCheckItemsConnection @aws_iam @aws_cognito_user_pools
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelQuotaRunsConnection @aws_iam @aws_cognito_user_pools {
+  items: [QuotaRuns]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelQuotaRunsFilterInput {
+  id: ModelIDInput
+  quotaID: ModelIDInput
+  apiEndpoint: ModelStringInput
+  balanceLimit: ModelFloatInput
+  httpResultCode: ModelIntInput
+  responseBody: ModelStringInput
+  zendeskTicketId: ModelIntInput
+  startAt: ModelIntInput
+  finishAt: ModelIntInput
+  lockedUntil: ModelIntInput
+  and: [ModelQuotaRunsFilterInput]
+  or: [ModelQuotaRunsFilterInput]
+  not: ModelQuotaRunsFilterInput
+}
+
+input ModelQuotaRunsConditionInput {
+  quotaID: ModelIDInput
+  apiEndpoint: ModelStringInput
+  balanceLimit: ModelFloatInput
+  httpResultCode: ModelIntInput
+  responseBody: ModelStringInput
+  zendeskTicketId: ModelIntInput
+  startAt: ModelIntInput
+  finishAt: ModelIntInput
+  lockedUntil: ModelIntInput
+  and: [ModelQuotaRunsConditionInput]
+  or: [ModelQuotaRunsConditionInput]
+  not: ModelQuotaRunsConditionInput
+}
+
+input CreateQuotaRunsInput {
+  id: ID
+  quotaID: ID!
+  apiEndpoint: String
+  balanceLimit: Float
+  httpResultCode: Int
+  responseBody: String
+  zendeskTicketId: Int
+  startAt: AWSTimestamp
+  finishAt: AWSTimestamp
+  lockedUntil: AWSTimestamp
+  _version: Int
+}
+
+input UpdateQuotaRunsInput {
+  id: ID!
+  quotaID: ID
+  apiEndpoint: String
+  balanceLimit: Float
+  httpResultCode: Int
+  responseBody: String
+  zendeskTicketId: Int
+  startAt: AWSTimestamp
+  finishAt: AWSTimestamp
+  lockedUntil: AWSTimestamp
+  _version: Int
+}
+
+input DeleteQuotaRunsInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createQuotaRuns(input: CreateQuotaRunsInput!, condition: ModelQuotaRunsConditionInput): QuotaRuns @aws_iam @aws_cognito_user_pools
+  updateQuotaRuns(input: UpdateQuotaRunsInput!, condition: ModelQuotaRunsConditionInput): QuotaRuns @aws_iam @aws_cognito_user_pools
+  deleteQuotaRuns(input: DeleteQuotaRunsInput!, condition: ModelQuotaRunsConditionInput): QuotaRuns @aws_iam @aws_cognito_user_pools
+  createQuotas(input: CreateQuotasInput!, condition: ModelQuotasConditionInput): Quotas @aws_iam @aws_cognito_user_pools
+  updateQuotas(input: UpdateQuotasInput!, condition: ModelQuotasConditionInput): Quotas @aws_iam @aws_cognito_user_pools
+  deleteQuotas(input: DeleteQuotasInput!, condition: ModelQuotasConditionInput): Quotas @aws_iam @aws_cognito_user_pools
+  createCheckUrlRuns(input: CreateCheckUrlRunsInput!, condition: ModelCheckUrlRunsConditionInput): CheckUrlRuns @aws_iam @aws_cognito_user_pools
+  updateCheckUrlRuns(input: UpdateCheckUrlRunsInput!, condition: ModelCheckUrlRunsConditionInput): CheckUrlRuns @aws_iam @aws_cognito_user_pools
+  deleteCheckUrlRuns(input: DeleteCheckUrlRunsInput!, condition: ModelCheckUrlRunsConditionInput): CheckUrlRuns @aws_iam @aws_cognito_user_pools
+  createCheckUrls(input: CreateCheckUrlsInput!, condition: ModelCheckUrlsConditionInput): CheckUrls @aws_iam @aws_cognito_user_pools
+  updateCheckUrls(input: UpdateCheckUrlsInput!, condition: ModelCheckUrlsConditionInput): CheckUrls @aws_iam @aws_cognito_user_pools
+  deleteCheckUrls(input: DeleteCheckUrlsInput!, condition: ModelCheckUrlsConditionInput): CheckUrls @aws_iam @aws_cognito_user_pools
+  createSchedules(input: CreateSchedulesInput!, condition: ModelSchedulesConditionInput): Schedules @aws_iam @aws_cognito_user_pools
+  updateSchedules(input: UpdateSchedulesInput!, condition: ModelSchedulesConditionInput): Schedules @aws_iam @aws_cognito_user_pools
+  deleteSchedules(input: DeleteSchedulesInput!, condition: ModelSchedulesConditionInput): Schedules @aws_iam @aws_cognito_user_pools
+  createCampaigns(input: CreateCampaignsInput!, condition: ModelCampaignsConditionInput): Campaigns @aws_iam @aws_cognito_user_pools
+  updateCampaigns(input: UpdateCampaignsInput!, condition: ModelCampaignsConditionInput): Campaigns @aws_iam @aws_cognito_user_pools
+  deleteCampaigns(input: DeleteCampaignsInput!, condition: ModelCampaignsConditionInput): Campaigns @aws_iam @aws_cognito_user_pools
+  createReports(input: CreateReportsInput!, condition: ModelReportsConditionInput): Reports @aws_iam @aws_cognito_user_pools
+  updateReports(input: UpdateReportsInput!, condition: ModelReportsConditionInput): Reports @aws_iam @aws_cognito_user_pools
+  deleteReports(input: DeleteReportsInput!, condition: ModelReportsConditionInput): Reports @aws_iam @aws_cognito_user_pools
+  createChecks(input: CreateChecksInput!, condition: ModelChecksConditionInput): Checks @aws_iam @aws_cognito_user_pools
+  updateChecks(input: UpdateChecksInput!, condition: ModelChecksConditionInput): Checks @aws_iam @aws_cognito_user_pools
+  deleteChecks(input: DeleteChecksInput!, condition: ModelChecksConditionInput): Checks @aws_iam @aws_cognito_user_pools
+  createCheckItems(input: CreateCheckItemsInput!, condition: ModelCheckItemsConditionInput): CheckItems @aws_iam @aws_cognito_user_pools
+  updateCheckItems(input: UpdateCheckItemsInput!, condition: ModelCheckItemsConditionInput): CheckItems @aws_iam @aws_cognito_user_pools
+  deleteCheckItems(input: DeleteCheckItemsInput!, condition: ModelCheckItemsConditionInput): CheckItems @aws_iam @aws_cognito_user_pools
+}
+
+input ModelSubscriptionQuotaRunsFilterInput {
+  id: ModelSubscriptionIDInput
+  quotaID: ModelSubscriptionIDInput
+  apiEndpoint: ModelSubscriptionStringInput
+  balanceLimit: ModelSubscriptionFloatInput
+  httpResultCode: ModelSubscriptionIntInput
+  responseBody: ModelSubscriptionStringInput
+  zendeskTicketId: ModelSubscriptionIntInput
+  startAt: ModelSubscriptionIntInput
+  finishAt: ModelSubscriptionIntInput
+  lockedUntil: ModelSubscriptionIntInput
+  and: [ModelSubscriptionQuotaRunsFilterInput]
+  or: [ModelSubscriptionQuotaRunsFilterInput]
+}
+
+type Subscription {
+  onCreateQuotaRuns(filter: ModelSubscriptionQuotaRunsFilterInput): QuotaRuns @aws_subscribe(mutations: ["createQuotaRuns"]) @aws_iam @aws_cognito_user_pools
+  onUpdateQuotaRuns(filter: ModelSubscriptionQuotaRunsFilterInput): QuotaRuns @aws_subscribe(mutations: ["updateQuotaRuns"]) @aws_iam @aws_cognito_user_pools
+  onDeleteQuotaRuns(filter: ModelSubscriptionQuotaRunsFilterInput): QuotaRuns @aws_subscribe(mutations: ["deleteQuotaRuns"]) @aws_iam @aws_cognito_user_pools
+  onCreateQuotas(filter: ModelSubscriptionQuotasFilterInput): Quotas @aws_subscribe(mutations: ["createQuotas"]) @aws_iam @aws_cognito_user_pools
+  onUpdateQuotas(filter: ModelSubscriptionQuotasFilterInput): Quotas @aws_subscribe(mutations: ["updateQuotas"]) @aws_iam @aws_cognito_user_pools
+  onDeleteQuotas(filter: ModelSubscriptionQuotasFilterInput): Quotas @aws_subscribe(mutations: ["deleteQuotas"]) @aws_iam @aws_cognito_user_pools
+  onCreateCheckUrlRuns(filter: ModelSubscriptionCheckUrlRunsFilterInput): CheckUrlRuns @aws_subscribe(mutations: ["createCheckUrlRuns"]) @aws_iam @aws_cognito_user_pools
+  onUpdateCheckUrlRuns(filter: ModelSubscriptionCheckUrlRunsFilterInput): CheckUrlRuns @aws_subscribe(mutations: ["updateCheckUrlRuns"]) @aws_iam @aws_cognito_user_pools
+  onDeleteCheckUrlRuns(filter: ModelSubscriptionCheckUrlRunsFilterInput): CheckUrlRuns @aws_subscribe(mutations: ["deleteCheckUrlRuns"]) @aws_iam @aws_cognito_user_pools
+  onCreateCheckUrls(filter: ModelSubscriptionCheckUrlsFilterInput): CheckUrls @aws_subscribe(mutations: ["createCheckUrls"]) @aws_iam @aws_cognito_user_pools
+  onUpdateCheckUrls(filter: ModelSubscriptionCheckUrlsFilterInput): CheckUrls @aws_subscribe(mutations: ["updateCheckUrls"]) @aws_iam @aws_cognito_user_pools
+  onDeleteCheckUrls(filter: ModelSubscriptionCheckUrlsFilterInput): CheckUrls @aws_subscribe(mutations: ["deleteCheckUrls"]) @aws_iam @aws_cognito_user_pools
+  onCreateSchedules(filter: ModelSubscriptionSchedulesFilterInput): Schedules @aws_subscribe(mutations: ["createSchedules"]) @aws_iam @aws_cognito_user_pools
+  onUpdateSchedules(filter: ModelSubscriptionSchedulesFilterInput): Schedules @aws_subscribe(mutations: ["updateSchedules"]) @aws_iam @aws_cognito_user_pools
+  onDeleteSchedules(filter: ModelSubscriptionSchedulesFilterInput): Schedules @aws_subscribe(mutations: ["deleteSchedules"]) @aws_iam @aws_cognito_user_pools
+  onCreateCampaigns(filter: ModelSubscriptionCampaignsFilterInput): Campaigns @aws_subscribe(mutations: ["createCampaigns"]) @aws_iam @aws_cognito_user_pools
+  onUpdateCampaigns(filter: ModelSubscriptionCampaignsFilterInput): Campaigns @aws_subscribe(mutations: ["updateCampaigns"]) @aws_iam @aws_cognito_user_pools
+  onDeleteCampaigns(filter: ModelSubscriptionCampaignsFilterInput): Campaigns @aws_subscribe(mutations: ["deleteCampaigns"]) @aws_iam @aws_cognito_user_pools
+  onCreateReports(filter: ModelSubscriptionReportsFilterInput): Reports @aws_subscribe(mutations: ["createReports"]) @aws_iam @aws_cognito_user_pools
+  onUpdateReports(filter: ModelSubscriptionReportsFilterInput): Reports @aws_subscribe(mutations: ["updateReports"]) @aws_iam @aws_cognito_user_pools
+  onDeleteReports(filter: ModelSubscriptionReportsFilterInput): Reports @aws_subscribe(mutations: ["deleteReports"]) @aws_iam @aws_cognito_user_pools
+  onCreateChecks(filter: ModelSubscriptionChecksFilterInput): Checks @aws_subscribe(mutations: ["createChecks"]) @aws_iam @aws_cognito_user_pools
+  onUpdateChecks(filter: ModelSubscriptionChecksFilterInput): Checks @aws_subscribe(mutations: ["updateChecks"]) @aws_iam @aws_cognito_user_pools
+  onDeleteChecks(filter: ModelSubscriptionChecksFilterInput): Checks @aws_subscribe(mutations: ["deleteChecks"]) @aws_iam @aws_cognito_user_pools
+  onCreateCheckItems(filter: ModelSubscriptionCheckItemsFilterInput): CheckItems @aws_subscribe(mutations: ["createCheckItems"]) @aws_iam @aws_cognito_user_pools
+  onUpdateCheckItems(filter: ModelSubscriptionCheckItemsFilterInput): CheckItems @aws_subscribe(mutations: ["updateCheckItems"]) @aws_iam @aws_cognito_user_pools
+  onDeleteCheckItems(filter: ModelSubscriptionCheckItemsFilterInput): CheckItems @aws_subscribe(mutations: ["deleteCheckItems"]) @aws_iam @aws_cognito_user_pools
+}
+
+type ModelQuotasConnection @aws_iam @aws_cognito_user_pools {
+  items: [Quotas]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelQuotasFilterInput {
+  id: ModelIDInput
+  scheduleID: ModelIDInput
+  clientId: ModelIntInput
+  balanceLimit: ModelFloatInput
+  and: [ModelQuotasFilterInput]
+  or: [ModelQuotasFilterInput]
+  not: ModelQuotasFilterInput
+}
+
+input ModelQuotasConditionInput {
+  scheduleID: ModelIDInput
+  clientId: ModelIntInput
+  balanceLimit: ModelFloatInput
+  and: [ModelQuotasConditionInput]
+  or: [ModelQuotasConditionInput]
+  not: ModelQuotasConditionInput
+}
+
+input CreateQuotasInput {
+  id: ID
+  scheduleID: ID!
+  clientId: Int
+  balanceLimit: Float
+  _version: Int
+}
+
+input UpdateQuotasInput {
+  id: ID!
+  scheduleID: ID
+  clientId: Int
+  balanceLimit: Float
+  _version: Int
+}
+
+input DeleteQuotasInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionQuotasFilterInput {
+  id: ModelSubscriptionIDInput
+  scheduleID: ModelSubscriptionIDInput
+  clientId: ModelSubscriptionIntInput
+  balanceLimit: ModelSubscriptionFloatInput
+  and: [ModelSubscriptionQuotasFilterInput]
+  or: [ModelSubscriptionQuotasFilterInput]
+}
+
+type ModelCheckUrlRunsConnection @aws_iam @aws_cognito_user_pools {
+  items: [CheckUrlRuns]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelCheckUrlRunsFilterInput {
+  id: ModelIDInput
+  checkUrlID: ModelIDInput
+  fullUri: ModelStringInput
+  httpResultCode: ModelStringInput
+  bodyLength: ModelIntInput
+  startAt: ModelIntInput
+  finishAt: ModelIntInput
+  lockedUntil: ModelIntInput
+  and: [ModelCheckUrlRunsFilterInput]
+  or: [ModelCheckUrlRunsFilterInput]
+  not: ModelCheckUrlRunsFilterInput
+}
+
+input ModelCheckUrlRunsConditionInput {
+  checkUrlID: ModelIDInput
+  fullUri: ModelStringInput
+  httpResultCode: ModelStringInput
+  bodyLength: ModelIntInput
+  startAt: ModelIntInput
+  finishAt: ModelIntInput
+  lockedUntil: ModelIntInput
+  and: [ModelCheckUrlRunsConditionInput]
+  or: [ModelCheckUrlRunsConditionInput]
+  not: ModelCheckUrlRunsConditionInput
+}
+
+input CreateCheckUrlRunsInput {
+  id: ID
+  checkUrlID: ID!
+  fullUri: String!
+  httpResultCode: String
+  bodyLength: Int
+  startAt: AWSTimestamp!
+  finishAt: AWSTimestamp
+  lockedUntil: AWSTimestamp
+  _version: Int
+}
+
+input UpdateCheckUrlRunsInput {
+  id: ID!
+  checkUrlID: ID
+  fullUri: String
+  httpResultCode: String
+  bodyLength: Int
+  startAt: AWSTimestamp
+  finishAt: AWSTimestamp
+  lockedUntil: AWSTimestamp
+  _version: Int
+}
+
+input DeleteCheckUrlRunsInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionCheckUrlRunsFilterInput {
+  id: ModelSubscriptionIDInput
+  checkUrlID: ModelSubscriptionIDInput
+  fullUri: ModelSubscriptionStringInput
+  httpResultCode: ModelSubscriptionStringInput
+  bodyLength: ModelSubscriptionIntInput
+  startAt: ModelSubscriptionIntInput
+  finishAt: ModelSubscriptionIntInput
+  lockedUntil: ModelSubscriptionIntInput
+  and: [ModelSubscriptionCheckUrlRunsFilterInput]
+  or: [ModelSubscriptionCheckUrlRunsFilterInput]
+}
+
+type ModelCheckUrlsConnection @aws_iam @aws_cognito_user_pools {
+  items: [CheckUrls]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelCheckUrlsFilterInput {
+  id: ModelIDInput
+  scheduleID: ModelIDInput
+  uri: ModelStringInput
+  and: [ModelCheckUrlsFilterInput]
+  or: [ModelCheckUrlsFilterInput]
+  not: ModelCheckUrlsFilterInput
+}
+
+input ModelCheckUrlsConditionInput {
+  scheduleID: ModelIDInput
+  uri: ModelStringInput
+  and: [ModelCheckUrlsConditionInput]
+  or: [ModelCheckUrlsConditionInput]
+  not: ModelCheckUrlsConditionInput
+}
+
+input CreateCheckUrlsInput {
+  id: ID
+  scheduleID: ID!
+  uri: String!
+  _version: Int
+}
+
+input UpdateCheckUrlsInput {
+  id: ID!
+  scheduleID: ID
+  uri: String
+  _version: Int
+}
+
+input DeleteCheckUrlsInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionCheckUrlsFilterInput {
+  id: ModelSubscriptionIDInput
+  scheduleID: ModelSubscriptionIDInput
+  uri: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCheckUrlsFilterInput]
+  or: [ModelSubscriptionCheckUrlsFilterInput]
+}
+
+type ModelSchedulesConnection @aws_iam @aws_cognito_user_pools {
+  items: [Schedules]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelSchedulesFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  frequency: ModelStringInput
+  and: [ModelSchedulesFilterInput]
+  or: [ModelSchedulesFilterInput]
+  not: ModelSchedulesFilterInput
+}
+
+input ModelSchedulesConditionInput {
+  name: ModelStringInput
+  frequency: ModelStringInput
+  and: [ModelSchedulesConditionInput]
+  or: [ModelSchedulesConditionInput]
+  not: ModelSchedulesConditionInput
+}
+
+input CreateSchedulesInput {
+  id: ID
+  name: String!
+  frequency: String!
+  _version: Int
+}
+
+input UpdateSchedulesInput {
+  id: ID!
+  name: String
+  frequency: String
+  _version: Int
+}
+
+input DeleteSchedulesInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionSchedulesFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  frequency: ModelSubscriptionStringInput
+  and: [ModelSubscriptionSchedulesFilterInput]
+  or: [ModelSubscriptionSchedulesFilterInput]
+}
+
+type ModelCampaignsConnection @aws_iam @aws_cognito_user_pools {
+  items: [Campaigns]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelCampaignsFilterInput {
+  CampaignID: ModelIDInput
+  CampaignUUID: ModelStringInput
+  CampaignName: ModelStringInput
+  CampaignUTCOffset: ModelStringInput
+  CampaignCardICA: ModelStringInput
+  and: [ModelCampaignsFilterInput]
+  or: [ModelCampaignsFilterInput]
+  not: ModelCampaignsFilterInput
+}
+
+input ModelCampaignsConditionInput {
+  CampaignID: ModelIDInput
+  CampaignUUID: ModelStringInput
+  CampaignName: ModelStringInput
+  CampaignUTCOffset: ModelStringInput
+  CampaignCardICA: ModelStringInput
+  and: [ModelCampaignsConditionInput]
+  or: [ModelCampaignsConditionInput]
+  not: ModelCampaignsConditionInput
+}
+
+input CreateCampaignsInput {
+  CampaignID: ID!
+  CampaignUUID: String
+  CampaignName: String!
+  CampaignUTCOffset: String
+  CampaignCardICA: String
+  id: ID
+  _version: Int
+}
+
+input UpdateCampaignsInput {
+  CampaignID: ID
+  CampaignUUID: String
+  CampaignName: String
+  CampaignUTCOffset: String
+  CampaignCardICA: String
+  id: ID!
+  _version: Int
+}
+
+input DeleteCampaignsInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionCampaignsFilterInput {
+  CampaignID: ModelSubscriptionIDInput
+  CampaignUUID: ModelSubscriptionStringInput
+  CampaignName: ModelSubscriptionStringInput
+  CampaignUTCOffset: ModelSubscriptionStringInput
+  CampaignCardICA: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCampaignsFilterInput]
+  or: [ModelSubscriptionCampaignsFilterInput]
+}
+
+type ModelReportsConnection @aws_iam @aws_cognito_user_pools {
+  items: [Reports]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStartDateTypeInput {
+  eq: StartDateType
+  ne: StartDateType
+}
+
+input ModelReportsFilterInput {
+  Name: ModelStringInput
+  ReportNamePattern: ModelStringInput
+  StartDate: ModelStartDateTypeInput
+  and: [ModelReportsFilterInput]
+  or: [ModelReportsFilterInput]
+  not: ModelReportsFilterInput
+}
+
+input ModelReportsConditionInput {
+  Name: ModelStringInput
+  ReportNamePattern: ModelStringInput
+  StartDate: ModelStartDateTypeInput
+  and: [ModelReportsConditionInput]
+  or: [ModelReportsConditionInput]
+  not: ModelReportsConditionInput
+}
+
+input CreateReportsInput {
+  Name: String!
+  ReportNamePattern: String!
+  StartDate: StartDateType!
+  id: ID
+  _version: Int
+}
+
+input UpdateReportsInput {
+  Name: String
+  ReportNamePattern: String
+  StartDate: StartDateType
+  id: ID!
+  _version: Int
+}
+
+input DeleteReportsInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionReportsFilterInput {
+  Name: ModelSubscriptionStringInput
+  ReportNamePattern: ModelSubscriptionStringInput
+  StartDate: ModelSubscriptionStringInput
+  and: [ModelSubscriptionReportsFilterInput]
+  or: [ModelSubscriptionReportsFilterInput]
+}
+
+type ModelChecksConnection @aws_iam @aws_cognito_user_pools {
+  items: [Checks]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelCheckTypeInput {
+  eq: CheckType
+  ne: CheckType
+}
+
+input ModelChecksFilterInput {
+  id: ModelIDInput
+  Type: ModelCheckTypeInput
+  Date: ModelIntInput
+  and: [ModelChecksFilterInput]
+  or: [ModelChecksFilterInput]
+  not: ModelChecksFilterInput
+}
+
+input ModelChecksConditionInput {
+  Type: ModelCheckTypeInput
+  Date: ModelIntInput
+  and: [ModelChecksConditionInput]
+  or: [ModelChecksConditionInput]
+  not: ModelChecksConditionInput
+}
+
+input CreateChecksInput {
+  id: ID
+  Type: CheckType!
+  Date: AWSTimestamp!
+  _version: Int
+}
+
+input UpdateChecksInput {
+  id: ID!
+  Type: CheckType
+  Date: AWSTimestamp
+  _version: Int
+}
+
+input DeleteChecksInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionChecksFilterInput {
+  id: ModelSubscriptionIDInput
+  Type: ModelSubscriptionStringInput
+  Date: ModelSubscriptionIntInput
+  and: [ModelSubscriptionChecksFilterInput]
+  or: [ModelSubscriptionChecksFilterInput]
+}
+
+type ModelCheckItemsConnection @aws_iam @aws_cognito_user_pools {
+  items: [CheckItems]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelCheckItemsFilterInput {
+  id: ModelIDInput
+  checkItemsCheckId: ModelIDInput
+  Url: ModelStringInput
+  HttpResultCode: ModelStringInput
+  BodyLength: ModelIntInput
+  LastModified: ModelIntInput
+  StartAt: ModelIntInput
+  FinishAt: ModelIntInput
+  and: [ModelCheckItemsFilterInput]
+  or: [ModelCheckItemsFilterInput]
+  not: ModelCheckItemsFilterInput
+  checkItemsCampaignId: ModelIDInput
+  checkItemsReportId: ModelIDInput
+}
+
+input ModelCheckItemsConditionInput {
+  checkItemsCheckId: ModelIDInput
+  Url: ModelStringInput
+  HttpResultCode: ModelStringInput
+  BodyLength: ModelIntInput
+  LastModified: ModelIntInput
+  StartAt: ModelIntInput
+  FinishAt: ModelIntInput
+  and: [ModelCheckItemsConditionInput]
+  or: [ModelCheckItemsConditionInput]
+  not: ModelCheckItemsConditionInput
+  checkItemsCampaignId: ModelIDInput
+  checkItemsReportId: ModelIDInput
+}
+
+input CreateCheckItemsInput {
+  id: ID
+  checkItemsCheckId: ID!
+  Url: String!
+  HttpResultCode: String!
+  BodyLength: Int!
+  LastModified: AWSTimestamp!
+  StartAt: AWSTimestamp!
+  FinishAt: AWSTimestamp!
+  _version: Int
+  checkItemsCampaignId: ID
+  checkItemsReportId: ID
+}
+
+input UpdateCheckItemsInput {
+  id: ID!
+  checkItemsCheckId: ID
+  Url: String
+  HttpResultCode: String
+  BodyLength: Int
+  LastModified: AWSTimestamp
+  StartAt: AWSTimestamp
+  FinishAt: AWSTimestamp
+  _version: Int
+  checkItemsCampaignId: ID
+  checkItemsReportId: ID
+}
+
+input DeleteCheckItemsInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelSubscriptionCheckItemsFilterInput {
+  id: ModelSubscriptionIDInput
+  checkItemsCheckId: ModelSubscriptionIDInput
+  Url: ModelSubscriptionStringInput
+  HttpResultCode: ModelSubscriptionStringInput
+  BodyLength: ModelSubscriptionIntInput
+  LastModified: ModelSubscriptionIntInput
+  StartAt: ModelSubscriptionIntInput
+  FinishAt: ModelSubscriptionIntInput
+  and: [ModelSubscriptionCheckItemsFilterInput]
+  or: [ModelSubscriptionCheckItemsFilterInput]
+}
+
+input ModelIntKeyConditionInput {
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+

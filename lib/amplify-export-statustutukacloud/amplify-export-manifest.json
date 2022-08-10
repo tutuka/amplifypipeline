@@ -1,0 +1,336 @@
+{
+  "stackName": "amplify-statustutukacloud-main-224122",
+  "props": {
+    "templateFile": "root-stack-template.json",
+    "parameters": {
+      "AuthRoleName": "amplify-statustutukacloud-main-224122-authRole",
+      "UnauthRoleName": "amplify-statustutukacloud-main-224122-unauthRole",
+      "DeploymentBucketName": "amplify-statustutukacloud-main-224122-deployment"
+    },
+    "preserveLogicalIds": true,
+    "loadNestedStacks": {
+      "apistatustutukacloud": {
+        "templateFile": "api/statustutukacloud/cloudformation-template.json",
+        "parameters": {
+          "AppSyncApiName": "statustutukacloud",
+          "DynamoDBBillingMode": "PAY_PER_REQUEST",
+          "DynamoDBEnableServerSideEncryption": false,
+          "S3DeploymentBucket": "amplify-statustutukacloud-main-224122-deployment",
+          "S3DeploymentRootKey": "amplify-appsync-files/0b13653b3005e0c57ca6af544e5fcd34b607d9e6",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {
+          "Campaigns": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/Campaigns.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "CheckItems": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/CheckItems.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "CheckUrlRuns": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/CheckUrlRuns.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "CheckUrls": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/CheckUrls.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "Checks": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/Checks.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "ConnectionStack": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/ConnectionStack.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "CustomResourcesjson": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/CustomResources.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "FunctionDirectiveStack": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/FunctionDirectiveStack.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "QuotaRuns": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/QuotaRuns.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "Quotas": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/Quotas.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "Reports": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/Reports.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          },
+          "Schedules": {
+            "templateFile": "api/statustutukacloud/amplify-appsync-files/stacks/Schedules.json",
+            "preserveLogicalIds": true,
+            "loadNestedStacks": {}
+          }
+        }
+      },
+      "authstatustutukacloud": {
+        "templateFile": "auth/statustutukacloud/statustutukacloud-cloudformation-template.json",
+        "parameters": {
+          "authSelections": "identityPoolAndUserPool",
+          "requiredAttributes": [
+            "email",
+            "given_name",
+            "family_name"
+          ],
+          "resourceName": "statustutukacloud",
+          "serviceName": "Cognito",
+          "useDefault": "manual",
+          "userpoolClientReadAttributes": [],
+          "userpoolClientWriteAttributes": [],
+          "resourceNameTruncated": "statusfc34e143",
+          "sharedId": "fc34e143",
+          "userPoolGroupList": [
+            "Everyone",
+            "Managers",
+            "Admins"
+          ],
+          "userPoolGroups": true,
+          "userPoolName": "statustutukacloud",
+          "usernameAttributes": [
+            "email"
+          ],
+          "usernameCaseSensitive": false,
+          "userpoolClientRefreshTokenValidity": "5",
+          "userpoolClientSetAttributes": false,
+          "userpoolClientGenerateSecret": false,
+          "userpoolClientLambdaRole": "statusfc34e143_userpoolclient_lambda_role",
+          "passwordPolicyCharacters": [
+            "Requires Lowercase",
+            "Requires Numbers",
+            "Requires Symbols",
+            "Requires Uppercase"
+          ],
+          "passwordPolicyMinLength": 16,
+          "adminQueries": false,
+          "mfaConfiguration": "OPTIONAL",
+          "mfaTypes": [
+            "TOTP"
+          ],
+          "smsAuthenticationMessage": "Your login code is {####}",
+          "emailVerificationMessage": "Forgot password code: {####}",
+          "emailVerificationSubject": "Forgot password code: {####}",
+          "smsVerificationMessage": "Your verification code is {####}",
+          "autoVerifiedAttributes": [
+            "email"
+          ],
+          "hostedUI": false,
+          "thirdPartyAuth": false,
+          "identityPoolName": "testAuthIdentityPool",
+          "allowUnauthenticatedIdentities": false,
+          "authProviders": [],
+          "triggers": "{\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"email-filter-whitelist\"]}",
+          "breakCircularDependency": false,
+          "useEnabledMfas": false,
+          "dependsOn": [
+            {
+              "category": "function",
+              "resourceName": "statustutukacloudPostConfirmation",
+              "triggerProvider": "Cognito",
+              "attributes": [
+                "Arn",
+                "Name"
+              ]
+            },
+            {
+              "category": "function",
+              "resourceName": "statustutukacloudPreSignup",
+              "triggerProvider": "Cognito",
+              "attributes": [
+                "Arn",
+                "Name"
+              ]
+            }
+          ],
+          "permissions": [
+            "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
+          ],
+          "authTriggerConnections": [
+            "{\"triggerType\":\"PostConfirmation\",\"lambdaFunctionName\":\"statustutukacloudPostConfirmation\"}",
+            "{\"triggerType\":\"PreSignUp\",\"lambdaFunctionName\":\"statustutukacloudPreSignup\"}"
+          ],
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "authuserPoolGroups": {
+        "templateFile": "auth/userPoolGroups/userPoolGroups-cloudformation-template.json",
+        "parameters": {
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functioncheckCampaigns": {
+        "templateFile": "function/checkCampaigns/checkCampaigns-cloudformation-template.json",
+        "parameters": {
+          "CloudWatchRule": "cron(0 9 * * ? *)",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/checkCampaigns-63507133686852316f44-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionfetchTasks": {
+        "templateFile": "function/fetchTasks/fetchTasks-cloudformation-template.json",
+        "parameters": {
+          "CloudWatchRule": "rate(5 minutes)",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/fetchTasks-587a355748666a533950-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functiongetCampaignsByName": {
+        "templateFile": "function/getCampaignsByName/getCampaignsByName-cloudformation-template.json",
+        "parameters": {
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/getCampaignsByName-68525561452f68333163-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionscheduleToTask": {
+        "templateFile": "function/scheduleToTask/scheduleToTask-cloudformation-template.json",
+        "parameters": {
+          "CloudWatchRule": "rate(10 minutes)",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/scheduleToTask-4e784a45387a31436d42-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionstatustutukacloudCronUuidLayer": {
+        "templateFile": "function/statustutukacloudCronUuidLayer/statustutukacloudCronUuidLayer-awscloudformation-template.json",
+        "parameters": {
+          "runtimes": [
+            "nodejs14.x"
+          ],
+          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/statustutukacloudCronUuidLayer-LambdaLayerVersion54a8fe4e-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionstatustutukacloudGetReportMetadata": {
+        "templateFile": "function/statustutukacloudGetReportMetadata/statustutukacloudGetReportMetadata-cloudformation-template.json",
+        "parameters": {
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/statustutukacloudGetReportMetadata-59442b5372384c4a2f72-build.zip",
+          "s3BucketReports": "cd-dashboard-storage105905-staging",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionstatustutukacloudIntranetLayer": {
+        "templateFile": "function/statustutukacloudIntranetLayer/statustutukacloudIntranetLayer-awscloudformation-template.json",
+        "parameters": {
+          "runtimes": [
+            "nodejs14.x"
+          ],
+          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/statustutukacloudIntranetLayer-LambdaLayerVersion1ca61bdd-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionstatustutukacloudPostConfirmation": {
+        "templateFile": "function/statustutukacloudPostConfirmation/statustutukacloudPostConfirmation-cloudformation-template.json",
+        "parameters": {
+          "modules": "add-to-group",
+          "resourceName": "statustutukacloudPostConfirmation",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/statustutukacloudPostConfirmation-767066384c7a4a4d6d34-build.zip",
+          "group": "Everyone",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionstatustutukacloudPreSignup": {
+        "templateFile": "function/statustutukacloudPreSignup/statustutukacloudPreSignup-cloudformation-template.json",
+        "parameters": {
+          "modules": "email-filter-whitelist",
+          "resourceName": "statustutukacloudPreSignup",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/statustutukacloudPreSignup-726e49566530594a4269-build.zip",
+          "domainwhitelist": "paymentology.com",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionstatustutukacloudSchedulesLayer": {
+        "templateFile": "function/statustutukacloudSchedulesLayer/statustutukacloudSchedulesLayer-awscloudformation-template.json",
+        "parameters": {
+          "runtimes": [
+            "nodejs14.x"
+          ],
+          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/statustutukacloudSchedulesLayer-LambdaLayerVersion76cfb40c-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionstatustutukacloudSlackStatusZendeskLayer": {
+        "templateFile": "function/statustutukacloudSlackStatusZendeskLayer/statustutukacloudSlackStatusZendeskLayer-awscloudformation-template.json",
+        "parameters": {
+          "runtimes": [
+            "nodejs14.x"
+          ],
+          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/statustutukacloudSlackStatusZendeskLayer-LambdaLayerVersiona2ce7244-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
+      "functionstatustutukacloudlayerGraphQL": {
+        "templateFile": "function/statustutukacloudlayerGraphQL/statustutukacloudlayerGraphQL-awscloudformation-template.json",
+        "parameters": {
+          "runtimes": [
+            "nodejs14.x"
+          ],
+          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
+          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "s3Key": "amplify-builds/statustutukacloudlayerGraphQL-LambdaLayerVersion2e756362-build.zip",
+          "env": "main"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      }
+    }
+  }
+}

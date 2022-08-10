@@ -1,0 +1,26 @@
+[
+  {
+    "key": "user:Stack",
+    "value": "{project-env}"
+  },
+  {
+    "key": "user:Application",
+    "value": "statustutukacloud"
+  },
+  {
+    "key": "status.tutuka.cloud.key",
+    "value": "status-statustutukacloud-{project-env}"
+  },
+  {
+    "key": "owner",
+    "value": "Services Tooling"
+  },
+  {
+    "key": "email",
+    "value": "anton@paymentology.com"
+  },
+  {
+    "key": "name",
+    "value": "status.tutuka.cloud"
+  }
+]

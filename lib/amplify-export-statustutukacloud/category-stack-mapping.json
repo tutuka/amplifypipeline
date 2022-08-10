@@ -1,0 +1,77 @@
+[
+  {
+    "category": "auth",
+    "resourceName": "statustutukacloud",
+    "service": "Cognito"
+  },
+  {
+    "category": "auth",
+    "resourceName": "userPoolGroups",
+    "service": "Cognito-UserPool-Groups"
+  },
+  {
+    "category": "api",
+    "resourceName": "statustutukacloud",
+    "service": "AppSync"
+  },
+  {
+    "category": "function",
+    "resourceName": "statustutukacloudPostConfirmation",
+    "service": "Lambda"
+  },
+  {
+    "category": "function",
+    "resourceName": "statustutukacloudPreSignup",
+    "service": "Lambda"
+  },
+  {
+    "category": "function",
+    "resourceName": "statustutukacloudSchedulesLayer",
+    "service": "LambdaLayer"
+  },
+  {
+    "category": "function",
+    "resourceName": "statustutukacloudSlackStatusZendeskLayer",
+    "service": "LambdaLayer"
+  },
+  {
+    "category": "function",
+    "resourceName": "scheduleToTask",
+    "service": "Lambda"
+  },
+  {
+    "category": "function",
+    "resourceName": "fetchTasks",
+    "service": "Lambda"
+  },
+  {
+    "category": "function",
+    "resourceName": "statustutukacloudCronUuidLayer",
+    "service": "LambdaLayer"
+  },
+  {
+    "category": "function",
+    "resourceName": "statustutukacloudIntranetLayer",
+    "service": "LambdaLayer"
+  },
+  {
+    "category": "function",
+    "resourceName": "statustutukacloudGetReportMetadata",
+    "service": "Lambda"
+  },
+  {
+    "category": "function",
+    "resourceName": "getCampaignsByName",
+    "service": "Lambda"
+  },
+  {
+    "category": "function",
+    "resourceName": "checkCampaigns",
+    "service": "Lambda"
+  },
+  {
+    "category": "function",
+    "resourceName": "statustutukacloudlayerGraphQL",
+    "service": "LambdaLayer"
+  }
+]
