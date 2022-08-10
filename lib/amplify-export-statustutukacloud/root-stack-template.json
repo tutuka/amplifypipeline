@@ -411,6 +411,12 @@
         "Parameters": {}
       }
     },
+    "functionantontest": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "Parameters": {}
+      }
+    },
     "UpdateRolesWithIDPFunction": {
       "DependsOn": [
         "AuthRole",

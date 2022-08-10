@@ -181,6 +181,14 @@
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
       },
+      "functionantontest": {
+        "templateFile": "function/antontest/antontest-cloudformation-template.json",
+        "parameters": {
+          "env": "mainclone"
+        },
+        "preserveLogicalIds": true,
+        "loadNestedStacks": {}
+      },
       "functioncheckCampaigns": {
         "templateFile": "function/checkCampaigns/checkCampaigns-cloudformation-template.json",
         "parameters": {

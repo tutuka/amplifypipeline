@@ -73,5 +73,10 @@
     "category": "function",
     "resourceName": "statustutukacloudlayerGraphQL",
     "service": "LambdaLayer"
+  },
+  {
+    "category": "function",
+    "resourceName": "antontest",
+    "service": "Lambda"
   }
 ]
