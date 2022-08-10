@@ -20,7 +20,7 @@
     }
   },
   "Resources": {
-    "LambdaLayerVersion1ca61bdd": {
+    "LambdaLayerVersion8095207d": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": [
@@ -37,12 +37,12 @@
                 {
                   "Ref": "s3Key"
                 },
-                "statustutukacloudIntranetLayer-LambdaLayerVersion1ca61bdd-build.zip"
+                "statustutukacloudIntranetLayer-LambdaLayerVersion8095207d-build.zip"
               ]
             ]
           }
         },
-        "Description": "Updated layer version 2022-08-10T15:39:04.661Z",
+        "Description": "Updated layer version 2022-08-10T18:33:04.143Z",
         "LayerName": {
           "Fn::Sub": [
             "statustutukacloudIntranetLayer-${env}",
@@ -57,21 +57,11 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivate1ca61bdd": {
+    "LambdaLayerPermissionPrivate8095207d": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudIntranetLayer-main:52",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerPermissionPrivateLegacy1": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudIntranetLayer-main:1",
+        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudIntranetLayer-mainclone:2",
         "Principal": {
           "Ref": "AWS::AccountId"
         }
@@ -81,7 +71,7 @@
   "Outputs": {
     "Arn": {
       "Value": {
-        "Ref": "LambdaLayerVersion1ca61bdd"
+        "Ref": "LambdaLayerVersion8095207d"
       }
     }
   }

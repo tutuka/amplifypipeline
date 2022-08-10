@@ -1,11 +1,11 @@
 {
-  "stackName": "amplify-statustutukacloud-main-224122",
+  "stackName": "amplify-statustutukacloud-mainclone-153013",
   "props": {
     "templateFile": "root-stack-template.json",
     "parameters": {
-      "AuthRoleName": "amplify-statustutukacloud-main-224122-authRole",
-      "UnauthRoleName": "amplify-statustutukacloud-main-224122-unauthRole",
-      "DeploymentBucketName": "amplify-statustutukacloud-main-224122-deployment"
+      "AuthRoleName": "amplify-statustutukacloud-mainclone-153013-authRole",
+      "UnauthRoleName": "amplify-statustutukacloud-mainclone-153013-unauthRole",
+      "DeploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment"
     },
     "preserveLogicalIds": true,
     "loadNestedStacks": {
@@ -15,9 +15,9 @@
           "AppSyncApiName": "statustutukacloud",
           "DynamoDBBillingMode": "PAY_PER_REQUEST",
           "DynamoDBEnableServerSideEncryption": false,
-          "S3DeploymentBucket": "amplify-statustutukacloud-main-224122-deployment",
+          "S3DeploymentBucket": "amplify-statustutukacloud-mainclone-153013-deployment",
           "S3DeploymentRootKey": "amplify-appsync-files/0b13653b3005e0c57ca6af544e5fcd34b607d9e6",
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {
@@ -168,7 +168,7 @@
             "{\"triggerType\":\"PostConfirmation\",\"lambdaFunctionName\":\"statustutukacloudPostConfirmation\"}",
             "{\"triggerType\":\"PreSignUp\",\"lambdaFunctionName\":\"statustutukacloudPreSignup\"}"
           ],
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -176,7 +176,7 @@
       "authuserPoolGroups": {
         "templateFile": "auth/userPoolGroups/userPoolGroups-cloudformation-template.json",
         "parameters": {
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -185,9 +185,9 @@
         "templateFile": "function/checkCampaigns/checkCampaigns-cloudformation-template.json",
         "parameters": {
           "CloudWatchRule": "cron(0 9 * * ? *)",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
           "s3Key": "amplify-builds/checkCampaigns-63507133686852316f44-build.zip",
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -196,9 +196,9 @@
         "templateFile": "function/fetchTasks/fetchTasks-cloudformation-template.json",
         "parameters": {
           "CloudWatchRule": "rate(5 minutes)",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
           "s3Key": "amplify-builds/fetchTasks-587a355748666a533950-build.zip",
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -206,9 +206,9 @@
       "functiongetCampaignsByName": {
         "templateFile": "function/getCampaignsByName/getCampaignsByName-cloudformation-template.json",
         "parameters": {
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
           "s3Key": "amplify-builds/getCampaignsByName-68525561452f68333163-build.zip",
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -217,9 +217,9 @@
         "templateFile": "function/scheduleToTask/scheduleToTask-cloudformation-template.json",
         "parameters": {
           "CloudWatchRule": "rate(10 minutes)",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
           "s3Key": "amplify-builds/scheduleToTask-4e784a45387a31436d42-build.zip",
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -230,10 +230,10 @@
           "runtimes": [
             "nodejs14.x"
           ],
-          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
-          "s3Key": "amplify-builds/statustutukacloudCronUuidLayer-LambdaLayerVersion54a8fe4e-build.zip",
-          "env": "main"
+          "description": "Updated layer version 2022-08-10T18:33:04.143Z",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
+          "s3Key": "amplify-builds/statustutukacloudCronUuidLayer-LambdaLayerVersion6f259217-build.zip",
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -241,10 +241,10 @@
       "functionstatustutukacloudGetReportMetadata": {
         "templateFile": "function/statustutukacloudGetReportMetadata/statustutukacloudGetReportMetadata-cloudformation-template.json",
         "parameters": {
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
           "s3Key": "amplify-builds/statustutukacloudGetReportMetadata-59442b5372384c4a2f72-build.zip",
           "s3BucketReports": "cd-dashboard-storage105905-staging",
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -255,10 +255,10 @@
           "runtimes": [
             "nodejs14.x"
           ],
-          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
-          "s3Key": "amplify-builds/statustutukacloudIntranetLayer-LambdaLayerVersion1ca61bdd-build.zip",
-          "env": "main"
+          "description": "Updated layer version 2022-08-10T18:33:04.143Z",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
+          "s3Key": "amplify-builds/statustutukacloudIntranetLayer-LambdaLayerVersion8095207d-build.zip",
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -268,10 +268,10 @@
         "parameters": {
           "modules": "add-to-group",
           "resourceName": "statustutukacloudPostConfirmation",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
           "s3Key": "amplify-builds/statustutukacloudPostConfirmation-767066384c7a4a4d6d34-build.zip",
           "group": "Everyone",
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -281,10 +281,10 @@
         "parameters": {
           "modules": "email-filter-whitelist",
           "resourceName": "statustutukacloudPreSignup",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
           "s3Key": "amplify-builds/statustutukacloudPreSignup-726e49566530594a4269-build.zip",
           "domainwhitelist": "paymentology.com",
-          "env": "main"
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -295,10 +295,10 @@
           "runtimes": [
             "nodejs14.x"
           ],
-          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
-          "s3Key": "amplify-builds/statustutukacloudSchedulesLayer-LambdaLayerVersion76cfb40c-build.zip",
-          "env": "main"
+          "description": "Updated layer version 2022-08-10T18:33:04.143Z",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
+          "s3Key": "amplify-builds/statustutukacloudSchedulesLayer-LambdaLayerVersion93be75b1-build.zip",
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -309,10 +309,10 @@
           "runtimes": [
             "nodejs14.x"
           ],
-          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
-          "s3Key": "amplify-builds/statustutukacloudSlackStatusZendeskLayer-LambdaLayerVersiona2ce7244-build.zip",
-          "env": "main"
+          "description": "Updated layer version 2022-08-10T18:33:04.143Z",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
+          "s3Key": "amplify-builds/statustutukacloudSlackStatusZendeskLayer-LambdaLayerVersion5e9fc053-build.zip",
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}
@@ -323,10 +323,10 @@
           "runtimes": [
             "nodejs14.x"
           ],
-          "description": "Updated layer version 2022-08-10T15:39:04.661Z",
-          "deploymentBucketName": "amplify-statustutukacloud-main-224122-deployment",
-          "s3Key": "amplify-builds/statustutukacloudlayerGraphQL-LambdaLayerVersion2e756362-build.zip",
-          "env": "main"
+          "description": "Updated layer version 2022-08-10T18:33:04.143Z",
+          "deploymentBucketName": "amplify-statustutukacloud-mainclone-153013-deployment",
+          "s3Key": "amplify-builds/statustutukacloudlayerGraphQL-LambdaLayerVersionb901bb54-build.zip",
+          "env": "mainclone"
         },
         "preserveLogicalIds": true,
         "loadNestedStacks": {}

@@ -20,7 +20,7 @@
     }
   },
   "Resources": {
-    "LambdaLayerVersion76cfb40c": {
+    "LambdaLayerVersion93be75b1": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": [
@@ -37,12 +37,12 @@
                 {
                   "Ref": "s3Key"
                 },
-                "statustutukacloudSchedulesLayer-LambdaLayerVersion76cfb40c-build.zip"
+                "statustutukacloudSchedulesLayer-LambdaLayerVersion93be75b1-build.zip"
               ]
             ]
           }
         },
-        "Description": "Updated layer version 2022-08-10T15:39:04.661Z",
+        "Description": "Updated layer version 2022-08-10T18:33:04.143Z",
         "LayerName": {
           "Fn::Sub": [
             "statustutukacloudSchedulesLayer-${env}",
@@ -57,21 +57,11 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivate76cfb40c": {
+    "LambdaLayerPermissionPrivate93be75b1": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudSchedulesLayer-main:47",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerPermissionPrivateLegacy1": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudSchedulesLayer-main:1",
+        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudSchedulesLayer-mainclone:2",
         "Principal": {
           "Ref": "AWS::AccountId"
         }
@@ -81,7 +71,7 @@
   "Outputs": {
     "Arn": {
       "Value": {
-        "Ref": "LambdaLayerVersion76cfb40c"
+        "Ref": "LambdaLayerVersion93be75b1"
       }
     }
   }

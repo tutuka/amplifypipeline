@@ -20,7 +20,7 @@
     }
   },
   "Resources": {
-    "LambdaLayerVersiona2ce7244": {
+    "LambdaLayerVersion5e9fc053": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": [
@@ -37,12 +37,12 @@
                 {
                   "Ref": "s3Key"
                 },
-                "statustutukacloudSlackStatusZendeskLayer-LambdaLayerVersiona2ce7244-build.zip"
+                "statustutukacloudSlackStatusZendeskLayer-LambdaLayerVersion5e9fc053-build.zip"
               ]
             ]
           }
         },
-        "Description": "Updated layer version 2022-08-10T15:39:04.661Z",
+        "Description": "Updated layer version 2022-08-10T18:33:04.143Z",
         "LayerName": {
           "Fn::Sub": [
             "statustutukacloudSlackStatusZendeskLayer-${env}",
@@ -57,21 +57,11 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivatea2ce7244": {
+    "LambdaLayerPermissionPrivate5e9fc053": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudSlackStatusZendeskLayer-main:52",
-        "Principal": {
-          "Ref": "AWS::AccountId"
-        }
-      }
-    },
-    "LambdaLayerPermissionPrivateLegacy1": {
-      "Type": "AWS::Lambda::LayerVersionPermission",
-      "Properties": {
-        "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudSlackStatusZendeskLayer-main:1",
+        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudSlackStatusZendeskLayer-mainclone:2",
         "Principal": {
           "Ref": "AWS::AccountId"
         }
@@ -81,7 +71,7 @@
   "Outputs": {
     "Arn": {
       "Value": {
-        "Ref": "LambdaLayerVersiona2ce7244"
+        "Ref": "LambdaLayerVersion5e9fc053"
       }
     }
   }

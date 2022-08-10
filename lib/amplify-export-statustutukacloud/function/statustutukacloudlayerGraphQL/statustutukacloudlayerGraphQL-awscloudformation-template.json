@@ -20,7 +20,7 @@
     }
   },
   "Resources": {
-    "LambdaLayerVersion2e756362": {
+    "LambdaLayerVersionb901bb54": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "CompatibleRuntimes": [
@@ -37,12 +37,12 @@
                 {
                   "Ref": "s3Key"
                 },
-                "statustutukacloudlayerGraphQL-LambdaLayerVersion2e756362-build.zip"
+                "statustutukacloudlayerGraphQL-LambdaLayerVersionb901bb54-build.zip"
               ]
             ]
           }
         },
-        "Description": "Updated layer version 2022-08-10T15:39:04.661Z",
+        "Description": "Updated layer version 2022-08-10T18:33:04.143Z",
         "LayerName": {
           "Fn::Sub": [
             "statustutukacloudlayerGraphQL-${env}",
@@ -57,11 +57,11 @@
       "DeletionPolicy": "Delete",
       "UpdateReplacePolicy": "Retain"
     },
-    "LambdaLayerPermissionPrivate2e756362": {
+    "LambdaLayerPermissionPrivateb901bb54": {
       "Type": "AWS::Lambda::LayerVersionPermission",
       "Properties": {
         "Action": "lambda:GetLayerVersion",
-        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudlayerGraphQL-main:2",
+        "LayerVersionArn": "arn:aws:lambda:eu-west-1:725406678628:layer:statustutukacloudlayerGraphQL-mainclone:2",
         "Principal": {
           "Ref": "AWS::AccountId"
         }
@@ -71,7 +71,7 @@
   "Outputs": {
     "Arn": {
       "Value": {
-        "Ref": "LambdaLayerVersion2e756362"
+        "Ref": "LambdaLayerVersionb901bb54"
       }
     }
   }
