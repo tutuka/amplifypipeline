@@ -5,6 +5,6 @@ import { MyPipelineStack } from '../lib/my-pipeline-stack';
 
 const app = new cdk.App();
 
-new MyPipelineStack(app, "MyCdkPipeline")
+new MyPipelineStack(app, "AmplifyPipeLineAntonTest")
 
 app.synth()
