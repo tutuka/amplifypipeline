@@ -247,12 +247,6 @@
               "authstatustutukacloud",
               "Outputs.UserPoolId"
             ]
-          },
-          "authRoleName": {
-            "Ref": "AuthRoleName"
-          },
-          "unauthRoleName": {
-            "Ref": "UnauthRoleName"
           }
         }
       }
