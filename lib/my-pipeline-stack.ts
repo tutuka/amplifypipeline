@@ -18,7 +18,7 @@ import { AmplifyStage } from './stages/amplify-stage';
        // How it will be built and synthesized
        synth: new ShellStep('Synth', {
          // Where the source can be found
-         input: CodePipelineSource.gitHub('tutuka/amplifypipeline', 'ampTest'),
+         input: CodePipelineSource.gitHub('tutuka/amplifypipeline', 'emptyamplify'),
          
          // Install dependencies, build and run cdk synth
          commands: [
