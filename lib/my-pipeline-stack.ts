@@ -12,8 +12,8 @@ import { AmplifyStage } from './stages/amplify-stage';
 
     const pipeline = new CodePipeline(this, 'Pipeline', {
       // The pipeline name
-      // pipelineName: 'MyCdkPipeline',
-      pipelineName: 'AmplifyPipeLineAntonTest',
+      pipelineName: 'AntonPipilineTest',
+      // pipelineName: 'AmplifyPipeLineAntonTest',
 
        // How it will be built and synthesized
        synth: new ShellStep('Synth', {
