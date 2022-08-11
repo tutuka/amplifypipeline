@@ -157,6 +157,12 @@
       "Properties": {
         "Parameters": {}
       }
+    },
+    "functionampTestFunc": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "Parameters": {}
+      }
     }
   }
 }

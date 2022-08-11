@@ -3,5 +3,10 @@
     "category": "api",
     "resourceName": "amptest",
     "service": "AppSync"
+  },
+  {
+    "category": "function",
+    "resourceName": "ampTestFunc",
+    "service": "Lambda"
   }
 ]
